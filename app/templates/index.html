@@ -1,0 +1,19 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+
+<div class="flex-menu m-3">
+    <div class="menu">
+        <div class="form-group p-1">
+            <input id="file-img" class="form-control" type=file>
+        </div>
+        <div class="d-grid gap-2 p-2">
+            <button class="btn btn-primary" onclick="addImg()">
+                Save
+            </button>
+        </div>   
+        <div id="imgs" class="container"></div>
+    </div>       
+</div>
+
+{% endblock %}   
