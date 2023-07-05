@@ -15,6 +15,7 @@ app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = ''
 app.config['MYSQL_DB'] = 'imgflaskapp'
+app.config['MYSQL_PORT'] = 3308
 
 mysql = MySQL(app)
 
@@ -85,12 +86,18 @@ def get_img():
         data = cur.fetchall()
         return jsonify(data)  
     
-@app.route('/delete/<string:file_name>', methods=['GET'])
+@app.route('/delete_img/<string:file_name>', methods=['GET'])
 def delete_file(file_name):
     if request.method == 'GET':
+        cur = mysql.connection.cursor()
         basePath = path.dirname(__file__)
         url_file = path.join (basePath, UPLOAD_FOLDER, file_name)
-        
         if path.exists(url_file):
             remove(url_file)
+        try:
+            cur.execute('DELETE FROM imgs WHERE name_img LIKE %s;', (file_name,))
+            mysql.connection.commit()
+        except Exception as e:
+            print('Error executing query:', str(e))
+            
     return render_template('index.html')
