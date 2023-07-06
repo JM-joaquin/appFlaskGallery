@@ -1,6 +1,11 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
 .flex-menu{
     display: flex;
-    width: 100%;
     height: auto;
     justify-content: center;
 }
@@ -11,8 +16,12 @@
 
 .container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr 1fr 1fr));
     grid-gap: 10px;
+    grid-template-areas: 
+    ". . ."
+    ". . ."
+    ". . ."; 
 }
 
 .container img{
